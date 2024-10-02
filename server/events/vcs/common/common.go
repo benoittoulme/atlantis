@@ -43,14 +43,15 @@ func SplitComment(comment string, maxSize int, sepEnd string, sepStart string, m
 		portion := comment[downFrom:upTo]
 		if len(comments)+1 != numComments {
 			portion = sepStart + portion
-		} else if len(comments)+1 == numComments && isTruncated {
-			portion = truncationHeader + portion
 		}
 		if len(comments) != 0 {
 			portion = portion + sepEnd
 		}
 		comments = append([]string{portion}, comments...)
 		upTo = downFrom
+	}
+	if isTruncated {
+		comments = append([]string{truncationHeader}, comments...)
 	}
 	return comments
 }
